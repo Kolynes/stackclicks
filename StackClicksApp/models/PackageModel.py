@@ -1,4 +1,4 @@
 from django.db import models
 
-class TransactionModel(models.Model):
-    
+class PackageModel(models.Model):
+    pass
