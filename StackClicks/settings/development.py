@@ -6,7 +6,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
-    "localhost"
+    "localhost",
+    "192.168.43.70"
 ]
 
 DATABASES = {

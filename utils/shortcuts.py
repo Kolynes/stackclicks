@@ -45,3 +45,8 @@ def paginate(querySet, page, itemsPerPage=settings.ITEMS_PER_PAGE):
 	objectList = pageN.object_list
 	return objectList, previousPage, nextPage, numberOfPages,
 
+def dictify(query_set):
+	dictionary = {}
+	for k,v in query_set.items():
+		dictionary[k] = v
+	return dictionary

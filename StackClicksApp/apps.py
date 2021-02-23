@@ -1,8 +1,8 @@
 from django.apps import AppConfig
 
 
-class StackclickappConfig(AppConfig):
-    name = 'StackClickApp'
+class StackclicksappConfig(AppConfig):
+    name = 'StackClicksApp'
 
-    def ready():
+    def ready(self):
         from . import signals
