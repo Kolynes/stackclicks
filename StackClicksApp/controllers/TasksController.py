@@ -1,6 +1,7 @@
 from utils.shortcuts import json_response, paginate
 from utils.controller import Controller
 from utils.decorators import ensure_signed_in, ensure_post
+from decimal import *
 
 from StackClicksApp import models
 
@@ -18,7 +19,8 @@ class TasksController(Controller):
                     return json_response(409, error={
                         "summary": "No active package found"
                     })
-                request.user.balance += models.PaymentModel.PACKAGES_PRICES[current_payment.package][1]
+                print(models.PaymentModel.PACKAGES_PRICES[current_payment.package][1])
+                request.user.balance += Decimal(models.PaymentModel.PACKAGES_PRICES[current_payment.package][1])
                 task.save()
                 request.user.save()
             return json_response(200)

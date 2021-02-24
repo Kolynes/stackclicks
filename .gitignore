@@ -2,3 +2,4 @@
 stackclicksworkspace.code-workspace
 db.sqlite3
 development.py
+__pycache__/

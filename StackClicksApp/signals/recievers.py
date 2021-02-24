@@ -2,6 +2,7 @@ from django.dispatch import receiver
 from AccountsApp import signals
 from .. import models
 from django.db.models.signals import post_save
+from decimal import *
 
 @receiver(signals.signed_up)
 def on_signed_up(sender, **kwargs):
@@ -30,5 +31,5 @@ def on_withdrawal_request_successful(sender, instance, **kwargs):
 @receiver(post_save, sender=models.PaymentModel)
 def on_payment(sender, instance, **kwargs):
     if instance.user.payments.count() == 1 and instance.user.referee != None:
-        instance.user.referee.referral_balance += models.PaymentModel.PACKAGES_PRICES[instance.pakage][0] * 0.1
+        instance.user.referee.referral_balance += Decimal(models.PaymentModel.PACKAGES_PRICES[instance.pakage][0] * 0.1)
         instance.user.referee.save()
