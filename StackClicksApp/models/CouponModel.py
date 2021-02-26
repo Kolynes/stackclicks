@@ -6,7 +6,7 @@ class CouponModel(models.Model):
 
     number = models.CharField(max_length=16, null=True, blank=True, unique=True)
     vendor = models.ForeignKey("VendorModel", on_delete=models.CASCADE)
-    package = models.CharField(max_length=1, choices=PaymentModel.PACKAGES)
+    package = models.CharField(max_length=2, choices=PaymentModel.PACKAGES)
     used = models.BooleanField(default=False)
 
     @property
