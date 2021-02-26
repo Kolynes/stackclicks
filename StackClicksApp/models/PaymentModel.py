@@ -2,14 +2,14 @@ from django.db import models
 import time
 
 class PaymentModel(models.Model):
-    SILVER = "S"
-    PLATINUM = "P"
-    RUBY = "R"
-    STAR = "S"
-    GOLD_STAR = "G"
-    OPAL = "O"
-    DIAMOND = "D"
-    PREMIUM = "M"
+    SILVER = "SI"
+    PLATINUM = "PL"
+    RUBY = "RU"
+    STAR = "SS"
+    GOLD_STAR = "GO"
+    OPAL = "OP"
+    DIAMOND = "DO"
+    PREMIUM = "PM"
 
     PACKAGES = (
         (SILVER, "Silver"),
@@ -35,7 +35,7 @@ class PaymentModel(models.Model):
 
     created_on = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey("UserModel", on_delete=models.CASCADE, related_name="payments")
-    package = models.CharField(max_length=1, choices=PACKAGES)
+    package = models.CharField(max_length=2, choices=PACKAGES)
     
     def __str__(self):
         return self.user.fullname
