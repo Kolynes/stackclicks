@@ -33,7 +33,7 @@ class WithdrawalRequestsController(Controller):
                 return json_response(409, error={
                     "summary": "Balance should be more thatn N500 to withdraw"
                 })
-        elif request.POST["type"] == models.WithdrawalRequestModel.REFERRAL:
+        if request.POST["type"] == models.WithdrawalRequestModel.REFERRAL:
             if request.user.referral_balance < float(request.POST["amount"]):
                 return json_response(409, error={
                     "summary": "Insufficient funds"
@@ -42,17 +42,16 @@ class WithdrawalRequestsController(Controller):
                 return json_response(409, error={
                     "summary": "Referral balance should be more thatn N10,000 to withdraw"
                 })
-        else: 
-            last_request = models.WithdrawalRequestModel.objects.all()[0]
-            if last_request.status == models.WithdrawalRequestModel.PENDING and last_request.type == request.POST["type"]:
-                return json_response(409, error={
-                    "summary": "You already have a pending withdrawal request"
-                })
-            else:
-                models.WithdrawalRequestModel.objects.create(
-                    user=request.user,
-                    status=models.WithdrawalRequestModel.PENDING,
-                    type=request.POST["type"],
-                    amount=request.POST["amount"]
-                )
-                return json_response(200)
+        last_request = models.WithdrawalRequestModel.objects.all()[0]
+        if last_request.status == models.WithdrawalRequestModel.PENDING and last_request.type == request.POST["type"]:
+            return json_response(409, error={
+                "summary": "You already have a pending withdrawal request"
+            })
+        else:
+            models.WithdrawalRequestModel.objects.create(
+                user=request.user,
+                status=models.WithdrawalRequestModel.PENDING,
+                type=request.POST["type"],
+                amount=request.POST["amount"]
+            )
+            return json_response(200)
