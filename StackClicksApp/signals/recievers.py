@@ -31,5 +31,5 @@ def on_withdrawal_request_successful(sender, instance, **kwargs):
 @receiver(post_save, sender=models.PaymentModel)
 def on_payment(sender, instance, **kwargs):
     if instance.user.payments.count() == 1 and instance.user.referee != None:
-        instance.user.referee.referral_balance += Decimal(models.PaymentModel.PACKAGES_PRICES[instance.pakage][0] * 0.1)
+        instance.user.referee.referral_balance += Decimal(models.PaymentModel.PACKAGES_PRICES[instance.package][0] * 0.1)
         instance.user.referee.save()
