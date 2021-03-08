@@ -42,16 +42,17 @@ class WithdrawalRequestsController(Controller):
                 return json_response(409, error={
                     "summary": "Referral balance should be more thatn N10,000 to withdraw"
                 })
-        last_request = models.WithdrawalRequestModel.objects.all()[0]
-        if last_request.status == models.WithdrawalRequestModel.PENDING and last_request.type == request.POST["type"]:
-            return json_response(409, error={
-                "summary": "You already have a pending withdrawal request"
-            })
-        else:
-            models.WithdrawalRequestModel.objects.create(
-                user=request.user,
-                status=models.WithdrawalRequestModel.PENDING,
-                type=request.POST["type"],
-                amount=request.POST["amount"]
-            )
-            return json_response(200)
+        all_user_request = request.user.withdrawals.all()
+        if len(all_user_request) > 0:
+            last_request = all_user_request[0]
+            if last_request.status == models.WithdrawalRequestModel.PENDING and last_request.type == request.POST["type"]:
+                return json_response(409, error={
+                    "summary": "You already have a pending withdrawal request"
+                })
+        models.WithdrawalRequestModel.objects.create(
+            user=request.user,
+            status=models.WithdrawalRequestModel.PENDING,
+            type=request.POST["type"],
+            amount=request.POST["amount"]
+        )
+        return json_response(200)
