@@ -28,7 +28,7 @@ class PaymentModel(models.Model):
         RUBY: (20000, 1033.33),
         STAR: (40000, 2066.66),
         GOLD_STAR: (80000, 4133.33),
-        OPAL: (160000, 6266.66),
+        OPAL: (160000, 8266.66),
         DIAMOND: (320000, 16533.33),
         PREMIUM: (640000, 33000.60)
     }
