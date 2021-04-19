@@ -55,4 +55,4 @@ class WithdrawalRequestsController(Controller):
             type=request.POST["type"],
             amount=request.POST["amount"]
         )
-        return json_response(200)
+        return json_response(201)
